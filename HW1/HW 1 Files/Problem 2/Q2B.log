@@ -1,0 +1,139 @@
+    Opened LOG FILE         on unit 10, filename is 'C:\Users\ms82697\Downloads\CMG_HW2\New\Q2B.log'
+ ********************************************************************************
+ *                                                                              *
+ *                                IMEX  2017.10                                 *
+ *                   Adaptive - Implicit Black Oil Simulator                    *
+ *                         General Release for Win x64                          *
+ *                            2017-Oct-17   11:56:23                            *
+ *                                                                              *
+ *                          (c) Copyright 1977 - 2017                           *
+ *                Computer Modelling Group Ltd., Calgary, Canada                *
+ *                             All Rights Reserved                              *
+ *                                                                              *
+ ********************************************************************************
+
+
+ Command-line Arguments:  -f C:\Users\ms82697\Downloads\CMG_HW2\New\Q2B.dat
+                          -wd C:\Users\ms82697\Downloads\CMG_HW2\New
+                          -log
+                          -jacpar
+                          -parasol 8
+                          -wait
+
+ Date and Time of Start of Run:  Sep 11, 2020  17:59:04
+
+
+*** Input/Output files specification :
+    Opened data file        on unit 11, filename is 'C:\Users\ms82697\Downloads\CMG_HW2\New\Q2B.dat'
+    Opened Scratch file     on unit 12
+
+ ===================== WARNING (from subroutine: INDYNM) ======================
+  Parasol specified using -parasol on command line 
+  aimsol was in effect - overriding using -parasol.
+ ==============================================================================
+
+
+ ===================== WARNING (from subroutine: INDYNM) ======================
+  INAC-WELL-SO not specifed with PARASOL in effect.
+  Defaulting to INAC-WELL-SO ON and continuing.
+ ==============================================================================
+
+ 
+ 
+    Opened output file      on unit 13, filename is 'C:\Users\ms82697\Downloads\CMG_HW2\New\Q2B.out'
+    Opened SR3-OUT          on unit 14, filename is 'C:\Users\ms82697\Downloads\CMG_HW2\New\Q2B.sr3'
+    Opened INDEX-OUT        on unit 15, filename is 'C:\Users\ms82697\Downloads\CMG_HW2\New\Q2B.irf'
+    Opened MAIN-RESULTS-OUT on unit 16, filename is 'C:\Users\ms82697\Downloads\CMG_HW2\New\Q2B.mrf'
+    Opened Restart-SR3      on unit 17, filename is 'C:\Users\ms82697\Downloads\CMG_HW2\New\Q2B.rstr.sr3'
+    Opened Restart-NDX      on unit 18, filename is 'C:\Users\ms82697\Downloads\CMG_HW2\New\Q2B.rstr.irf'
+    Opened Restart-BIN      on unit 19, filename is 'C:\Users\ms82697\Downloads\CMG_HW2\New\Q2B.rstr.mrf'
+
+ =================== WARNING (from subroutine: GRDLST_CHK) ====================
+  Solvent property related printout is being disabled
+  This MODEL option does not allow solvent property output.
+  Line: 15   File Name: C:\Users\ms82697\Downloads\CMG_HW2\New\Q2B.dat          
+ ==============================================================================
+
+    Opened GRID scratchfile on unit 20
+
+ ===================== WARNING (from subroutine: ENDPTS) ======================
+  The first entry for Krow in the water-oil table should be equal to the entry for
+  Krog in the liquid-gas table where Sl=1 or Sg=0 for Rock type # 1, set # 1.
+ ==============================================================================
+
+
+ =============== WARNING (from subroutine: CHK_BLK_ENDPTS_INIT) ===============
+  Max. Krow is not equal to max. Krog at (I,J,K) = 1,2,1,
+  rock type # 1, set # 1. Check the block's Kro scaling.
+ ==============================================================================
+
+
+ ===================== SUMMARY (from subroutine: INDATA) ======================
+  Reading of initial data is complete.
+  Simulation will stop if there were error messages.
+     3 Warning messages.    0 Error messages.
+ ==============================================================================
+
+
+                                    I M E X   T I M E   S T E P   S U M M A R Y
+ ==================================================================================================================
+    Time Step           Time                  Total Production             Total Injection  Total Max. Max. Change
+ ---------------- ---------------- -------------------------------------- -----------------  PV   Mat. ------------
+                C                    Oil      Gas     Water   GOR.  Wat.    Gas     Water   Avg.  bal. Satur. Pres.
+        Size    U                                             SCF/   Cut                    Pres. err. DSMAX  DPMAX
+  No.   Days IT T Days   yy:mm:dd   STB/D    MCF/D    STB/D    STB    %    MCF/D    STB/D   psia   %          psia
+ ------ ---- -- - ----- ---------- -------- -------- -------- ----- ----- -------- -------- ----- ---- ------ -----
+     1w 1.00 1  0 1.000 2020:09:10                                                           4329 e-8g  1e-7w  .006
+
+ ===================== SUMMARY (from subroutine: TSIO)   ======================
+  Simulation run terminated. Stopping time reached.
+    
+     3 Warning messages.    0 Error messages.
+ ==============================================================================
+
+
+       Field Total                             Fluid
+                             Oil       Gas       Water    Solvent   Polymer 
+                            -------   -------   -------   -------   -------
+                            (MSTB)    (MMSCF)   (MSTB)    (MMSCF)   (MLB) 
+  Cumulative Production        0         0         0        NA        NA   
+  Cumulative Injection        NA         0         0        NA        NA   
+  Cumulative Gas Lift         NA         0        NA        NA        NA   
+  Cumulative Water Influx     NA        NA         0        NA        NA   
+  Current Fluids In Place     53912    4891.9     19430     NA        NA   
+  Production Rates             0         0         0        NA        NA   
+  Injection Rates             NA         0         0        NA        NA   
+
+  Timesteps:      1  Newton Cycles:        1  Cuts:      0  Solver Iterations:           12
+  Average Implicitness    : 0.000
+  Material Balances (owg ): 1.000 1.000 1.000
+  Average Active Blocks:        4146 Average Non-BHP Active Wells:     0
+  Total Blocks :        6000 Total Wells :     1
+  Active Blocks:        4146 Non-BHP Active Wells:     0
+  Total lstpro/lstpar calls:     3
+  Time at end of simulation:   1.00000     (days)   
+  Average reservoir pressure excluding water zone: 4328.517 (psi)    
+  Total Number of Solver Failures:       0  Stalls:       0  ITERMAX Reached:       0
+  Jacobian Domains      8
+  Linear Solver: Parasol
+  Number of level 1 solver classes:    8
+  AUTOPSLAB Cutting Direction:    J
+  Preconditioner Ordering     REDBLACK
+  Preconditioner Degree aa, ab, as, bb, ba:    1    2    1    1    1
+  KMP_AFFINITY: Default
+  OMP_SCHEDULE: Default
+  Max Solver Iterations (TS,CUT,NCYC):  12 (    1, 0,  1 )
+  Number of threads set:    8
+  Total number of cpus:    8
+  Number of threads for grid module:    8
+  Memory Usage Peak:       41 MB on TS:    1  TS 1 Peak:       41 MB  Average:       41 MB  VM Size:       54 MB
+  Memory Usage Final Size:         42 MB
+  Host computer: PGE-LRC-33
+
+  End of Simulation: Normal Termination
+
+  CPU Time:             1.03 seconds
+  Elapsed Time:         0.30 seconds
+
+  Date and Time of End of Run:  Sep 11, 2020  17:59:04
+

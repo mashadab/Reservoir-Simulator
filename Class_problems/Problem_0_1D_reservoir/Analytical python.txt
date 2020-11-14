@@ -1,0 +1,19 @@
+def analytical(time,blocks):
+    tol = 0.0001
+    x = np.arange(blocks)*dx + dx/2
+    P1 = 500-((D-Length*np.sin(dip*np.pi/180))*(rho/144))- 14.7; #based on boundary 500 psi at L P1 at pooint n check
+    P0 = 0
+    alpha = 6.33E-3*k/(phi*u*ct)
+    n = 0
+    SUM = 0
+    for i in range(10000000):
+        new = (-1)**(n+1)*np.cos((n+1/2)*np.pi*x/Length)*np.exp(-(2*n+1)**2/Length**2*alpha*np.pi**2*time/4)/(2*n+1)
+        SUM = 4/np.pi*(P1-P0)*new + SUM
+        error=max(abs(new));
+        if error > tol:
+            n = n +1
+        else:
+            break
+
+    P = SUM + p + P1
+    return P;
