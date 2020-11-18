@@ -49,7 +49,8 @@ def inputfile(fluid,reservoir,petro,numerical,BC,IC,well):
     numerical.Nx     = 3    #number of grid blocks in x-direction
     numerical.Ny     = 1    #number of grid blocks in y-direction 
     numerical.N  = numerical.Nx * numerical.Ny #Total number of grid blocks
-    numerical.theta  = 1.0   #type of method theta = 1-Explicit, 0-Implicit, 0.5-CN
+    #numerical.theta  = 1.0   #type of method theta = 1-Explicit, 0-Implicit, 0.5-CN
+    numerical.method = 'IMPES' #Implicit pressure explicit saturation solver
 
     # Fluid parameters
     fluid.muw = 1.0*np.ones((numerical.N, 1))   #fluid viscosity [centipoise]  

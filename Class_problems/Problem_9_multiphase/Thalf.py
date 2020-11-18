@@ -26,7 +26,7 @@ def Thalf(i,j,direction,fluid,reservoir,petro,numerical,P,Sw):
         Bo  = fluid.Bo[i,0]    
         muw = fluid.muw[i,0]    
         muo = fluid.muo[i,0]    
-    
+
     if P[i,0] < P[j,0]:
         krw,kro = rel_perm(petro,Sw[j,0])
         Bw  = fluid.Bw[j,0]
