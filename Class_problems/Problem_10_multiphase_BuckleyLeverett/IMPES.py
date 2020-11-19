@@ -15,7 +15,6 @@ import matplotlib.pyplot as plt
 import time as timer
 from math import floor, ceil
 
-
 #importing personal libraries
 from input_file_1D import inputfile
 from myarrays import myarrays
@@ -74,7 +73,7 @@ while (t_D[k] < numerical.PV_final): #non dimensional time marching
     
     #Calculating the arrays
     Tw, To, T, d11, d12, d21, d22, D, G = myarrays(fluid,reservoir,petro,numerical,BC,P,Sw)
-    #########################################################
+
     #updating the wells
     well, Qw, Qo, Jw, Jo = updatewells(reservoir,fluid,numerical,petro,P,Sw,well)
     Q = (-d22 @ inv(d12)) @ Qw + Qo
@@ -112,7 +111,10 @@ plt.ylabel(r'$C_D$')
 '''
 
 plt.figure()
-plt.plot(numerical.xc,P_plot)
-plt.xlabel(r'$x$ [feet]')
-plt.ylabel(r'$P$ [psi]')
-plt.savefig('PvsT.png',bbox_inches='tight', dpi = 600)
+plt.plot(numerical.xc/reservoir.L,Sw_plot[:,48],label=r'$t_D=0.1$')
+plt.plot(numerical.xc/reservoir.L,Sw_plot[:,48*2],label=r'$t_D=0.2$')
+plt.plot(numerical.xc/reservoir.L,Sw_plot[:,48*3],label=r'$t_D=0.3$')
+plt.xlabel(r'$x_D$')
+plt.ylabel(r'$S_w$')
+plt.legend(loc='best', shadow=False, fontsize='medium')
+plt.savefig('SwvsT.png',bbox_inches='tight', dpi = 600)
