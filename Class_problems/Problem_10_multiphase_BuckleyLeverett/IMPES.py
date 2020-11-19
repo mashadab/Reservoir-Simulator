@@ -118,3 +118,11 @@ plt.xlabel(r'$x_D$')
 plt.ylabel(r'$S_w$')
 plt.legend(loc='best', shadow=False, fontsize='medium')
 plt.savefig('SwvsT.png',bbox_inches='tight', dpi = 600)
+
+
+plt.figure()
+plt.plot(t_D[0:k],fw[0:k])
+plt.ylabel(r'Water cut')
+plt.xlabel(r'Pore volumes injected')
+plt.savefig('watercutvsPVI.png',bbox_inches='tight', dpi = 600)
+
