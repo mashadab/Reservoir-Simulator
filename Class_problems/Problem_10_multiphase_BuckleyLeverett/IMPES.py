@@ -1,6 +1,6 @@
 """
 reservoir simulation assignment 3
-2D reservoir simulation Q7: Main file (Implicit pressure explicit saturation)
+1D reservoir simulation Q10: Main file (Implicit pressure explicit saturation)
 Author: Mohammad Afzal Shadab
 Email: mashadab@utexas.edu
 Date modified: 11/17/2020
@@ -14,6 +14,8 @@ from scipy.sparse.linalg import spsolve
 import matplotlib.pyplot as plt
 import time as timer
 from math import floor, ceil
+import warnings
+warnings.filterwarnings("ignore")
 
 #importing personal libraries
 from input_file_1D import inputfile
@@ -125,4 +127,3 @@ plt.plot(t_D[0:k],fw[0:k])
 plt.ylabel(r'Water cut')
 plt.xlabel(r'Pore volumes injected')
 plt.savefig('watercutvsPVI.png',bbox_inches='tight', dpi = 600)
-

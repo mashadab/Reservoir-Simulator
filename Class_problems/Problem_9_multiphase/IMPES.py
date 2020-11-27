@@ -15,7 +15,6 @@ import matplotlib.pyplot as plt
 import time as timer
 from math import floor, ceil
 
-
 #importing personal libraries
 from input_file import inputfile
 from myarrays import myarrays

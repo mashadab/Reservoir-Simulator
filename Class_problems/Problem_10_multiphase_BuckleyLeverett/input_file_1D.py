@@ -47,7 +47,7 @@ def inputfile(fluid,reservoir,petro,numerical,BC,IC,well):
     numerical.dt     = 10   #time step (days)
     numerical.tfinal = 4    #final time [days]
     numerical.PV_final=1.0  #non-dimensional pore volume injected (a non dimensional time)
-    numerical.Nx     = 50   #number of grid blocks in x-direction
+    numerical.Nx     = 100   #number of grid blocks in x-direction
     numerical.Ny     = 1    #number of grid blocks in y-direction 
     numerical.N  = numerical.Nx * numerical.Ny #Total number of grid blocks
     #numerical.theta  = 1.0   #type of method theta = 1-Explicit, 0-Implicit, 0.5-CN
@@ -143,6 +143,7 @@ def inputfile(fluid,reservoir,petro,numerical,BC,IC,well):
 #porosity = np.loadtxt("PJ1-Porosity.txt")
 #permx    = np.loadtxt("PJ1-Permeability.txt") 
 
+'''
 inputfile(fluid,reservoir,petro,numerical,BC,IC,well)
 
 print(rel_perm(petro,0.5))
@@ -150,3 +151,4 @@ print(rel_perm(petro,0.5))
 print(Thalf(0,1,'x',fluid,reservoir,petro,numerical,IC.P,IC.Sw))
 
 Tw, To, T, d11, d12, d21, d22, D, G = myarrays(fluid,reservoir,petro,numerical,BC,IC.P,IC.Sw)
+'''
