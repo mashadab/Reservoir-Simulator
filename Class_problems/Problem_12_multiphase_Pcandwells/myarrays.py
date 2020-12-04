@@ -9,9 +9,10 @@ Date modified: 10/31/2020
 from scipy.sparse import lil_matrix, csr_matrix
 from scipy.sparse.linalg import inv
 from Thalf import Thalf   #for calculating transmissibility
+from cap_press import cap_press
 
 #fluid, reservoir and simulation parameters   
-def myarrays(fluid,reservoir,petro,numerical,BC,P,Sw):
+def myarrays(fluid,reservoir,petro,numerical,BC,P,Pw,Sw):
     #Setting up matrix T, B, and Q
     T = lil_matrix((numerical.N, numerical.N))
     Tw= lil_matrix((numerical.N, numerical.N))
@@ -77,7 +78,7 @@ def myarrays(fluid,reservoir,petro,numerical,BC,P,Sw):
                 #T[l,l] = T[l,l] + 2 * Thalf(l,l,'y',fluid,reservoir,numerical)
                 #Q[l,0] = Q[l,0] + 2 * Thalf(l,l,'y',fluid,reservoir,numerical) * (BC.value[2][0]) * 6.33E-3 #without gravity 
                 #Q[l,0] = Q[l,0] + 2 * Thalf(l,l,'y',fluid,reservoir,numerical) * (BC.value[2][0] - (fluid.rho/144.0)*numerical.D[l,0] ) * 6.33E-3 #with gravity 
-        
+
         if int(l / numerical.Nx) < numerical.Ny - 1:  #not top boundary
              Twhalf, Tohalf = Thalf(l,l+numerical.Nx,'y',fluid,reservoir,petro,numerical,P,Sw)
 
@@ -97,8 +98,9 @@ def myarrays(fluid,reservoir,petro,numerical,BC,P,Sw):
     
         #B[l,l] = numerical.dx[l,0] * numerical.dy[l,0] * reservoir.h * reservoir.phi[l,0] * fluid.ct / fluid.Bw[l,0] #accumulation
         Vp = numerical.dx[l,0] * numerical.dy[l,0] * reservoir.h * reservoir.phi[l,0]
+        Pcd,Pcprime = cap_press(petro,Sw[l,0])
         d11[l,l] = Vp * Sw[l,0] * (fluid.cw + reservoir.cfr)/(fluid.Bw[l,0] * numerical.dt)
-        d12[l,l] = Vp /(fluid.Bw[l,0] * numerical.dt)
+        d12[l,l] = Vp / (fluid.Bw[l,0] * numerical.dt)*(1.0 - Sw[l,0] * reservoir.phi[l,0] * fluid.cw * Pcprime )
         d21[l,l] = Vp * (1-Sw[l,0]) * (fluid.co + reservoir.cfr)/(fluid.Bo[l,0] * numerical.dt)
         d22[l,l] =-Vp /(fluid.Bo[l,0] * numerical.dt)
         
@@ -112,5 +114,6 @@ def myarrays(fluid,reservoir,petro,numerical,BC,P,Sw):
     Tw= (6.33E-3 * Tw).tocsr()#multiplying with the conversion factor 
     To= (6.33E-3 * To).tocsr()#multiplying with the conversion factor 
     T = (-d22 @ (inv(d12)) @ Tw) + To  #Weighing using the formula given in the sheet                        
-    #G = csr_matrix((fluid.rho/144.0)*(T@numerical.D))
+    G = -d22 @ (inv(d12)) @ Tw @ (P - Pw) +((-d22 @ inv(d12)) @ Tw * fluid.rhow /144.0 + fluid.rhoo[0,0]/144.0 * To) @ numerical.D
+    
     return Tw, To, T, d11, d12, d21, d22, D, G;

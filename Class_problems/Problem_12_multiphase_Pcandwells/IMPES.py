@@ -3,7 +3,7 @@ reservoir simulation assignment 10
 1D reservoir simulation Q10: Main file (Implicit pressure explicit saturation)
 Author: Mohammad Afzal Shadab
 Email: mashadab@utexas.edu
-Date modified: 11/17/2020
+Date modified: 12/4/2020
 """
 
 #import inbuilt libraries
@@ -60,6 +60,7 @@ t_D[0]= 0
 k     = 0
 PV    = 0
 P     = np.copy(IC.P)
+Pw    = np.copy(IC.Pw)
 Sw    = np.array(np.copy(IC.Sw))
 nmax  = ceil(numerical.tfinal / numerical.dt)
 
@@ -70,11 +71,11 @@ P_plot[:,0] = IC.P[:,0]
 Sw_plot= np.zeros((numerical.N, 10000)) #matrix to save pressure 
 Sw_plot[:,0]= IC.Sw[:,0] 
 
-while (t_D[k] < numerical.PV_final): #non dimensional time marching    
+while k<1:#(t_D[k] < numerical.PV_final): #non dimensional time marching    
     P_old = np.copy(P)   #Placeholdering the old array
     
     #Calculating the arrays
-    Tw, To, T, d11, d12, d21, d22, D, G = myarrays(fluid,reservoir,petro,numerical,BC,P,Sw)
+    Tw, To, T, d11, d12, d21, d22, D, G = myarrays(fluid,reservoir,petro,numerical,BC,P,Pw,Sw)
 
     #updating the wells
     well, Qw, Qo, Jw, Jo = updatewells(reservoir,fluid,numerical,petro,P,Sw,well)

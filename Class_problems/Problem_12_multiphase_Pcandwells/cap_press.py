@@ -4,7 +4,7 @@ reservoir simulation project 2 (2020): Problem 1
 Capillary pressure and relative permeability: Capillary pressure
 Author: Mohammad Afzal Shadab
 Email: mashadab@utexas.edu
-Date modified: 11/12/2020
+Date modified: 12/04/2020
 """
 import numpy as np
 
@@ -15,18 +15,11 @@ def cap_press(petro,Sw):
     
     #Corey-Brooks model
     Pcd = petro.Pe * Se **(-1.0 / petro.lamda)        #Drainage capillary pressure (used for initialization) {Eq. 1.28a}  
+
     Pci = petro.Pe * (S **(-1.0 / petro.lamda) - 1.0) #Imbibition capillary pressure (used for initialization) {Eq. 1.28b}
     
-    '''
-    #implementing percolation threshold conditions
-    #for water phase    
-    if(Sw <= petro.Swr):
-        Pcd = np.nan
-        Pci = np.nan        
-    #for oil phase
-    if(Sw >= 1.0-petro.Sor):
-        Pcd = Pcd
-        Pci = np.nan       
-    '''
+    Se2 = Se + 0.001
+    Pcd2 = petro.Pe * Se2 **(-1.0 / petro.lamda)
+    Pcprime = (Pcd2 - Pcd)/0.001
     
-    return np.array([Pci, Pcd], dtype=np.float64)
+    return Pcd,Pcprime;

@@ -162,7 +162,6 @@ def inputfile(fluid,reservoir,petro,numerical,BC,IC,well):
         fluid_properties(reservoir,fluid,IC.P,IC.Pw)
         error = abs(IC.P[0,0]-IC.P_old[0,0])
         
-
 inputfile(fluid,reservoir,petro,numerical,BC,IC,well)
 '''
 print(rel_perm(petro,0.5))

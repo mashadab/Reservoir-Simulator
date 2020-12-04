@@ -20,14 +20,18 @@ def Thalf(i,j,direction,fluid,reservoir,petro,numerical,P,Sw):
             (reservoir.permy[i,0]*numerical.dx[i,0]*reservoir.h*numerical.dy[j,0] + \
              reservoir.permy[j,0]*numerical.dx[j,0]*reservoir.h*numerical.dy[i,0])
 
-    if P[i,0] >= P[j,0]:
+    #Calculating the potential
+    POT_i  = P[i,0] - ( fluid.rhoo[i,0] / 144.0 ) * numerical.D[i,0]
+    POT_j  = P[j,0] - ( fluid.rhoo[j,0] / 144.0 ) * numerical.D[j,0]
+
+    if POT_i >= POT_j:
         krw,kro = rel_perm(petro,Sw[i,0])
         Bw  = fluid.Bw[i,0]
         Bo  = fluid.Bo[i,0]    
         muw = fluid.muw[i,0]    
         muo = fluid.muo[i,0]    
 
-    if P[i,0] < P[j,0]:
+    elif POT_i < POT_j:
         krw,kro = rel_perm(petro,Sw[j,0])
         Bw  = fluid.Bw[j,0]
         Bo  = fluid.Bo[j,0]    
