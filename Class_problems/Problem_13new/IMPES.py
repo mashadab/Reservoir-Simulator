@@ -73,13 +73,12 @@ P_plot[:,0] = IC.P[:,0]
 Sw_plot= np.zeros((numerical.N, 10000)) #matrix to save pressure 
 Sw_plot[:,0]= IC.Sw[:,0] 
 
-while k <1: #(t[k] < numerical.tfinal): #non dimensional time marching    
+while k <11: #(t[k] < numerical.tfinal): #non dimensional time marching    
     P_old = np.copy(P)   #Placeholdering the old array
     Sw_old= np.copy(Sw)   #Placeholdering the old array
     
     #Calculating the arrays
     Tw, To, T, d11, d12, d21, d22, D, G, Pc = myarrays(fluid,reservoir,petro,numerical,BC,P,Pw,Sw,Sw_hyst)
-
     #updating the wells
     well, Qw, Qo, Jw, Jo = updatewells(reservoir,fluid,numerical,petro,P,Sw,well)
     

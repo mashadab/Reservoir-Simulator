@@ -99,12 +99,11 @@ def myarrays(fluid,reservoir,petro,numerical,BC,P,Pw,Sw,Sw_hyst):
         #B[l,l] = numerical.dx[l,0] * numerical.dy[l,0] * reservoir.h * reservoir.phi[l,0] * fluid.ct / fluid.Bw[l,0] #accumulation
         Vp = numerical.dx[l,0] * numerical.dy[l,0] * reservoir.h * reservoir.phi[l,0]
         Pc,Pcprime = cap_press(petro,Sw[l,0],Sw_hyst[l,0]) 
+        Pw[l,0]  = P[l,0] - Pc
         d11[l,l] = Vp * Sw[l,0] * (fluid.cw + reservoir.cfr)/(fluid.Bw[l,0] * numerical.dt)
         d12[l,l] = Vp / (fluid.Bw[l,0] * numerical.dt)*(1.0 - Sw[l,0] * reservoir.phi[l,0] * fluid.cw * Pcprime )
         d21[l,l] = Vp * (1-Sw[l,0]) * (fluid.co + reservoir.cfr)/(fluid.Bo[l,0] * numerical.dt)
         d22[l,l] =-Vp /(fluid.Bo[l,0] * numerical.dt)
-        
-        print(l,Vp,fluid.Bw[l,0],numerical.dt,Sw[l,0],reservoir.phi[l,0],fluid.cw,Pcprime )
         
         D[l,l]   =-(d22[l,l]*d11[l,l]/d12[l,l]) + d21[l,l] 
 
@@ -117,5 +116,7 @@ def myarrays(fluid,reservoir,petro,numerical,BC,P,Pw,Sw,Sw_hyst):
     To= (6.33E-3 * To).tocsr()#multiplying with the conversion factor 
     T = (-d22 @ (inv(d12)) @ Tw) + To  #Weighing using the formula given in the sheet                        
     G = -d22 @ inv(d12) @ (Tw @ (P - Pw)) +((-d22 @ inv(d12) @ Tw) * fluid.rhow /144.0 + fluid.rhoo[0,0]/144.0 * To) @ numerical.D
-    
+
+    print(Pc,Pw,(P - Pw) , fluid.rhow /144.0 , fluid.rhoo[0,0]/144.0, numerical.D)
+        
     return Tw, To, T, d11, d12, d21, d22, D, G, Pc;

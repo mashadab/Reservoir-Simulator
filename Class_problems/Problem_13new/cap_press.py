@@ -23,7 +23,7 @@ def cap_press(petro,Sw,Sw_hyst):
     f      = ((Sw_max - Sw_hyst + epspc)/(Sw_max - Sw_hyst)) * ((Sw - Sw_hyst) / (Sw - Sw_hyst + epspc))
     #f = 1.0
     Pc     = f * Pci + (1.0 - f) * Pcd
-    
+
     #Calculate derivative
     S2     = (Sw + 0.001 - petro.Swr) / (1.0 - petro.Swr - petro.Sor)
     Se2    = (Sw + 0.001 - petro.Swr) / (1.0 - petro.Swr)

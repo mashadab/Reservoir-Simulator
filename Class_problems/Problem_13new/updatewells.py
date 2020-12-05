@@ -45,19 +45,18 @@ def updatewells(reservoir,fluid,numerical,petro,P,Sw,well):
             #Qw[kblock,0]      = Qw[kblock,0] + Jw[kblock,kblock]*well.constraint[k][0]                  
             Jo[kblock,kblock] = Jo[kblock,kblock] + well.Jovec[k,0]
             #Qo[kblock,0]      = Qo[kblock,0] + Jo[kblock,kblock]*well.constraint[k][0]            
-        
+     
         elif well.type[k][0] == 1: #for rate [scf/day]  
             if well.constraint[k][0] > 0: #injector well
                 Qw[kblock,0]      = Qw[kblock,0] + well.constraint[k][0] 
                 Qo[kblock,0]      = Qo[kblock,0] + 0.0 
-                print(k,fw,Qw[kblock,0],Qo[kblock,0],well.constraint[k][0] )
             else:    #producer well
                 krw,kro = rel_perm(petro,Sw[kblock,0])
                 M       = (kro * fluid.Bw[kblock,0]) / (krw * fluid.Bo[kblock,0])
                 fw      = 1.0/(1.0 + M)
                 Qw[kblock,0]      = Qw[kblock,0] + fw * well.constraint[k][0] 
                 Qo[kblock,0]      = Qo[kblock,0] + (1 - fw) * well.constraint[k][0]                 
-                print(k,fw,Qw[kblock,0],Qo[kblock,0],well.constraint[k][0] )
+             
     Jw= Jw.tocsr()
     Jo= Jo.tocsr()
     Qo= Qo.tocsr()
