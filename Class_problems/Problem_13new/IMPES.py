@@ -63,6 +63,7 @@ P     = np.copy(IC.P)
 Pw    = np.copy(IC.Pw)
 Sw    = np.array(np.copy(IC.Sw))
 Sw_hyst=np.empty((numerical.N,2))
+Sw_hyst[:,0]=Sw[:,0]
 nmax  = ceil(numerical.tfinal / numerical.dt)
 
 fw   = np.empty((100000))          #fractional flow of wetting phase
@@ -72,7 +73,7 @@ P_plot[:,0] = IC.P[:,0]
 Sw_plot= np.zeros((numerical.N, 10000)) #matrix to save pressure 
 Sw_plot[:,0]= IC.Sw[:,0] 
 
-while k <0: #(t[k] < numerical.tfinal): #non dimensional time marching    
+while k <1: #(t[k] < numerical.tfinal): #non dimensional time marching    
     P_old = np.copy(P)   #Placeholdering the old array
     Sw_old= np.copy(Sw)   #Placeholdering the old array
     
