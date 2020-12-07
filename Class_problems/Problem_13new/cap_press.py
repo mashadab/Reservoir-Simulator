@@ -14,14 +14,14 @@ def cap_press(petro,Sw,Sw_hyst):
     Se     = (Sw - petro.Swr)/(1.0 - petro.Swr)             #{Eq. 1.28a}
     
     #Corey-Brooks model
-    Pcd    = petro.Pe * Se **(-1.0 / petro.lamda)        #Drainage capillary pressure (used for initialization) {Eq. 1.28a}  
-    Pci    = petro.Pe * (S **(-1.0 / petro.lamda) - 1.0) #Imbibition capillary pressure (used for initialization) {Eq. 1.28b}
+    Pcd    = petro.Pe * (Se) **(-1.0 / petro.lamda)        #Drainage capillary pressure (used for initialization) {Eq. 1.28a}  
+    Pci    = petro.Pe * ((S) **(-1.0 / petro.lamda) - 1.0) #Imbibition capillary pressure (used for initialization) {Eq. 1.28b}
     
     #Capillary pressure scanning curve
     epspc  = 1e-5
     Sw_max = 1.0 - petro.Sor
-    f      = ((Sw_max - Sw_hyst + epspc)/(Sw_max - Sw_hyst)) * ((Sw - Sw_hyst) / (Sw - Sw_hyst + epspc))
-    #f = 1.0
+    #f      = ((Sw_max - Sw_hyst + epspc)/(Sw_max - Sw_hyst)) * ((Sw - Sw_hyst) / (Sw - Sw_hyst + epspc))
+    f = 1.0
     Pc     = f * Pci + (1.0 - f) * Pcd
 
     #Calculate derivative
@@ -30,8 +30,8 @@ def cap_press(petro,Sw,Sw_hyst):
     
     Pcd2   = petro.Pe * Se2 **(-1.0 / petro.lamda)
     Pci2   = petro.Pe * (S2 **(-1.0 / petro.lamda) - 1.0 )
-    f2     = ((Sw_max - Sw_hyst + epspc) / (Sw_max - Sw_hyst)) * ((Sw + 0.001 - Sw_hyst) / (Sw + 0.001 - Sw_hyst + epspc))
-    #f2 = 1.0
+    #f2     = ((Sw_max - Sw_hyst + epspc) / (Sw_max - Sw_hyst)) * ((Sw + 0.001 - Sw_hyst) / (Sw + 0.001 - Sw_hyst + epspc))
+    f2 = 1.0
     Pc2    = f2 * Pci + (1.0 - f2) *  Pcd
     Pcprime = (Pc2 - Pc)/0.001
     

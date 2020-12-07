@@ -11,6 +11,7 @@ import numpy as np
 from scipy.sparse import lil_matrix, csr_matrix, identity
 from scipy.sparse.linalg import inv
 from scipy.sparse.linalg import spsolve
+from scipy.sparse.construct import eye
 import matplotlib.pyplot as plt
 import time as timer
 from math import floor, ceil
@@ -22,6 +23,7 @@ from input_file_2D import inputfile
 from myarrays import myarrays
 from updatewells import updatewells
 from rel_perm import rel_perm
+from spdiaginv import spdiaginv
 
 #making simulation and IC classes
 class numerical:
@@ -68,29 +70,31 @@ nmax  = ceil(numerical.tfinal / numerical.dt)
 
 fw   = np.empty((100000))          #fractional flow of wetting phase
 fw[0]= 0
-P_plot= np.zeros((numerical.N,10000)) #matrix to save pressure 
+P_plot= np.zeros((numerical.N,100000)) #matrix to save pressure 
 P_plot[:,0] = IC.P[:,0] 
-Sw_plot= np.zeros((numerical.N, 10000)) #matrix to save pressure 
+Sw_plot= np.zeros((numerical.N, 100000)) #matrix to save pressure 
 Sw_plot[:,0]= IC.Sw[:,0] 
 
-while k <11: #(t[k] < numerical.tfinal): #non dimensional time marching    
+while k<2000:#(t[k] < numerical.tfinal): #non dimensional time marching    
+    if(k == nmax/4 or k == nmax/2 or k == nmax*3/4 or k == nmax): print(k, t[k],Sw,P)
+    
     P_old = np.copy(P)   #Placeholdering the old array
     Sw_old= np.copy(Sw)   #Placeholdering the old array
     
     #Calculating the arrays
-    Tw, To, T, d11, d12, d21, d22, D, G, Pc = myarrays(fluid,reservoir,petro,numerical,BC,P,Pw,Sw,Sw_hyst)
+    Tw, To, T, d11, d12, d21, d22, D, G, Pc, Pw = myarrays(fluid,reservoir,petro,numerical,BC,P,Sw,Sw_hyst)
     #updating the wells
     well, Qw, Qo, Jw, Jo = updatewells(reservoir,fluid,numerical,petro,P,Sw,well)
     
-    J = (-d22 @ inv(d12)) @ Jw + Jo
-    Q = (-d22 @ inv(d12)) @ Qw + Qo + 800.0 * J @ np.ones((numerical.N,1))   #Pwf = 800 psi
+    J = (-d22 @ spdiaginv(d12)) @ Jw + Jo
+    Q = (-d22 @ spdiaginv(d12)) @ Qw + Qo + 800.0 * J @ np.ones((numerical.N,1))   #Pwf = 800 psi
 
     if numerical.method == 'IMPES':
         IM = T + J + D          #implicit part coefficient in Eq. 3.44   
         EX = D @ P_old + Q + G  #explicit part or RHS of Eq. 3.44
     
         P = np.transpose([spsolve(IM,EX)]) #solving IM*P = EX or Ax=B        
-        Sw = Sw + inv(d12) @ (-Tw @ (P - (fluid.rhow/144.0) * numerical.D - Pc) - d11 @ (P - P_old) + Qw + Jw @ (800.0 - P))         #explicit saturation
+        Sw = Sw + spdiaginv(d12) @ (-Tw @ (P - (fluid.rhow/144.0) * numerical.D - Pc) - d11 @ (P - P_old) + Qw + Jw @ (800.0 - P))         #explicit saturation
 
     for i in range(0, numerical.N):
         if Sw[i,0] > Sw_old[i,0] and Sw_hyst[i,1] == 0:  # [i,1] is a flag
