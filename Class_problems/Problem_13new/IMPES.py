@@ -75,7 +75,7 @@ P_plot[:,0] = IC.P[:,0]
 Sw_plot= np.zeros((numerical.N, 100000)) #matrix to save pressure 
 Sw_plot[:,0]= IC.Sw[:,0] 
 
-while k<2000:#(t[k] < numerical.tfinal): #non dimensional time marching    
+while (t[k] < numerical.tfinal): #non dimensional time marching    
     if(k == nmax/4 or k == nmax/2 or k == nmax*3/4 or k == nmax): print(k, t[k],Sw,P)
     
     P_old = np.copy(P)   #Placeholdering the old array

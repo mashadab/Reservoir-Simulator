@@ -34,7 +34,7 @@ def myarrays(fluid,reservoir,petro,numerical,BC,P,Sw,Sw_hyst):
         Pw[l,0]  = P[l,0] - Pc [l,0]
     
         if (l+1) % numerical.Nx != 1:  #not on left boundary     
-             Twhalf, Tohalf = Thalf(l,l-1,'x',fluid,reservoir,petro,numerical,P,Sw)
+             Twhalf, Tohalf = Thalf(l,l-1,'x',fluid,reservoir,petro,numerical,P,Pc[l,0],Sw)
             
              Tw[l,l-1] =-Twhalf                                   
              Tw[l,l]   = Tw[l,l] - Tw[l,l-1]  
@@ -52,7 +52,7 @@ def myarrays(fluid,reservoir,petro,numerical,BC,P,Sw,Sw_hyst):
         
         if (l+1) % numerical.Nx != 0:  #not on right boundary
 
-             Twhalf, Tohalf = Thalf(l,l+1,'x',fluid,reservoir,petro,numerical,P,Sw)
+             Twhalf, Tohalf = Thalf(l,l+1,'x',fluid,reservoir,petro,numerical,P,Pc[l,0],Sw)
             
              Tw[l,l+1] =-Twhalf                                   
              Tw[l,l]   = Tw[l,l] - Tw[l,l+1]  
@@ -69,7 +69,7 @@ def myarrays(fluid,reservoir,petro,numerical,BC,P,Sw,Sw_hyst):
                 #Q[l,0] = Q[l,0] + 2 * Thalf(l,l,'x',fluid,reservoir,numerical) * (BC.value[1][0] - (fluid.rho/144.0)*numerical.D[l,0] )* 6.33E-3  #with gravity  
     
         if int(l / numerical.Nx) > 0:  #not bottom boundary
-             Twhalf, Tohalf = Thalf(l,l-numerical.Nx,'y',fluid,reservoir,petro,numerical,P,Sw)
+             Twhalf, Tohalf = Thalf(l,l-numerical.Nx,'y',fluid,reservoir,petro,numerical,P,Pc[l,0],Sw)
 
              Tw[l,l-numerical.Nx] =-Twhalf                                   
              Tw[l,l]   = Tw[l,l] - Tw[l,l-numerical.Nx] 
@@ -87,7 +87,7 @@ def myarrays(fluid,reservoir,petro,numerical,BC,P,Sw,Sw_hyst):
                 #Q[l,0] = Q[l,0] + 2 * Thalf(l,l,'y',fluid,reservoir,numerical) * (BC.value[2][0] - (fluid.rho/144.0)*numerical.D[l,0] ) * 6.33E-3 #with gravity 
 
         if int(l / numerical.Nx) < numerical.Ny - 1:  #not top boundary
-             Twhalf, Tohalf = Thalf(l,l+numerical.Nx,'y',fluid,reservoir,petro,numerical,P,Sw)
+             Twhalf, Tohalf = Thalf(l,l+numerical.Nx,'y',fluid,reservoir,petro,numerical,P,Pc[l,0],Sw)
 
              Tw[l,l+numerical.Nx] =-Twhalf                                   
              Tw[l,l]   = Tw[l,l] - Tw[l,l+numerical.Nx] 
