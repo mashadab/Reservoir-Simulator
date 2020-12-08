@@ -51,6 +51,8 @@ class well:
     def __init__(self):
         self.xmin = []
 
+tprogstart= timer.clock()
+
 #loading inputfile
 inputfile(fluid,reservoir,petro,numerical,BC,IC,well)
 #Implicit pressure and explicit saturation for update
@@ -80,14 +82,16 @@ while (t[k] < numerical.tfinal): #non dimensional time marching
     
     P_old = np.copy(P)   #Placeholdering the old array
     Sw_old= np.copy(Sw)   #Placeholdering the old array
-    
+
     #Calculating the arrays
-    Tw, To, T, d11, d12, d21, d22, D, G, Pc, Pw = myarrays(fluid,reservoir,petro,numerical,BC,P,Sw,Sw_hyst)
+    Tw, To, T, d11, d12, d21, d22, D, G, Pc, Pw = myarrays(fluid,reservoir,petro,numerical,BC,P,Sw,Sw_hyst)  
+
     #updating the wells
     well, Qw, Qo, Jw, Jo = updatewells(reservoir,fluid,numerical,petro,P,Sw,well)
-    
-    J = (-d22 @ spdiaginv(d12)) @ Jw + Jo
-    Q = (-d22 @ spdiaginv(d12)) @ Qw + Qo + 800.0 * J @ np.ones((numerical.N,1))   #Pwf = 800 psi
+   
+    J = -d22 @ ( spdiaginv(d12) @ Jw ) + Jo
+
+    Q = -d22 @ ( spdiaginv(d12) @ Qw ) + Qo + 800.0 * J @ np.ones((numerical.N,1))   #Pwf = 800 psi
 
     if numerical.method == 'IMPES':
         IM = T + J + D          #implicit part coefficient in Eq. 3.44   
@@ -116,6 +120,11 @@ while (t[k] < numerical.tfinal): #non dimensional time marching
     fw[k] = 1/(1+M)
 
 P_plot[np.argwhere(reservoir.permx < 0.01)] = np.nan
+
+tprogend= timer.clock()
+print('Time elapsed in the program', tprogend - tprogstart)
+
+np.savez(f'Project2_n{numerical.N}', P_plot = P_plot, Sw_plot = Sw_plot, Nx = numerical.Nx, Ny = numerical.Ny,fw =fw,t = t, x1 = numerical.x1, y1 = numerical.y1)
 
 #post process
 '''

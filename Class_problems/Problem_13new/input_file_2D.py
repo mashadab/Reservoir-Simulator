@@ -46,7 +46,7 @@ class well:
 def inputfile(fluid,reservoir,petro,numerical,BC,IC,well):
     # Numerical simulation parameters
     numerical.dt     = 0.01 #time step (days)
-    numerical.tfinal = 500  #final time [days]
+    numerical.tfinal = 1000 #final time [days]
     numerical.PV_final = 1  #final pore volume
     numerical.Nx     = 3    #number of grid blocks in x-direction
     numerical.Ny     = 3    #number of grid blocks in y-direction 
@@ -151,7 +151,6 @@ def inputfile(fluid,reservoir,petro,numerical,BC,IC,well):
 
     error = 1
     tol   = 1E-2
-    
     
     while error > tol:
         IC.P_old= np.copy(IC.P)

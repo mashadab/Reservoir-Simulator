@@ -10,7 +10,7 @@ from rel_perm import rel_perm
 
 #fluid, reservoir and simulation parameters   
 def Thalf(i,j,direction,fluid,reservoir,petro,numerical,P,Pc,Sw):
- 
+
     if direction == 'x':  
         kAd = (2*reservoir.permx[i,0]*numerical.dy[i,0]*reservoir.h*reservoir.permx[j,0]*numerical.dy[j,0]*reservoir.h)/ \
             (reservoir.permx[i,0]*numerical.dy[i,0]*reservoir.h*numerical.dx[j,0] + \
@@ -24,8 +24,8 @@ def Thalf(i,j,direction,fluid,reservoir,petro,numerical,P,Pc,Sw):
     POT_i  = P[i,0]  - ( fluid.rhoo[i,0] / (144.0*fluid.Bo[i,0]) ) * numerical.D[i,0] 
     POT_j  = P[j,0]  - ( fluid.rhoo[j,0] / (144.0*fluid.Bo[j,0]) ) * numerical.D[j,0] 
 
-    POT_wi = P[i,0] - Pc  - ( fluid.rhow / (144.0*fluid.Bw[i,0]) ) * numerical.D[i,0]
-    POT_wj = P[j,0] - Pc  - ( fluid.rhow / (144.0*fluid.Bw[j,0]) ) * numerical.D[j,0]
+    #POT_wi = P[i,0] - Pc  - ( fluid.rhow / (144.0*fluid.Bw[i,0]) ) * numerical.D[i,0]
+    #POT_wj = P[j,0] - Pc  - ( fluid.rhow / (144.0*fluid.Bw[j,0]) ) * numerical.D[j,0]
 
     if POT_i >= POT_j:
         krw,kro = rel_perm(petro,Sw[i,0])

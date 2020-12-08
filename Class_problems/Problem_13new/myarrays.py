@@ -15,6 +15,7 @@ from numpy import zeros
 
 #fluid, reservoir and simulation parameters   
 def myarrays(fluid,reservoir,petro,numerical,BC,P,Sw,Sw_hyst):
+    
     #Setting up matrix T, B, and Q
     T   = lil_matrix((numerical.N, numerical.N))
     Tw  = lil_matrix((numerical.N, numerical.N))
@@ -102,7 +103,7 @@ def myarrays(fluid,reservoir,petro,numerical,BC,P,Sw,Sw_hyst):
                 #T[l,l] = T[l,l] + 2 * Thalf(l,l,'y',fluid,reservoir,numerical)
                 #Q[l,0] = Q[l,0] + 2 * Thalf(l,l,'y',fluid,reservoir,numerical) * (BC.value[3][0]) * 6.33E-3 #without gravity                 
                 #Q[l,0] = Q[l,0] + 2 * Thalf(l,l,'y',fluid,reservoir,numerical) * (BC.value[3][0] - (fluid.rho/144.0)*numerical.D[l,0] ) * 6.33E-3 #with gravity   
-    
+  
         #B[l,l] = numerical.dx[l,0] * numerical.dy[l,0] * reservoir.h * reservoir.phi[l,0] * fluid.ct / fluid.Bw[l,0] #accumulation
         Vp = numerical.dx[l,0] * numerical.dy[l,0] * reservoir.h * reservoir.phi[l,0]        
         d11[l,l] = Vp * Sw[l,0] * (fluid.cw + reservoir.cfr)/(fluid.Bw[l,0] * numerical.dt)
@@ -115,10 +116,10 @@ def myarrays(fluid,reservoir,petro,numerical,BC,P,Sw,Sw_hyst):
     d12 = d12.tocsr() 
     d21 = d21.tocsr()
     d11 = d11.tocsr() 
-    
+   
     Tw= (6.33E-3 * Tw).tocsr()#multiplying with the conversion factor 
     To= (6.33E-3 * To).tocsr()#multiplying with the conversion factor 
     T = (-d22 @ (spdiaginv(d12)) @ Tw) + To  #Weighing using the formula given in the sheet                        
-    G = -d22 @ spdiaginv(d12) @ (Tw @ (P - Pw)) +((-d22 @ spdiaginv(d12) @ Tw) * fluid.rhow /144.0 + fluid.rhoo[0,0]/144.0 * To) @ numerical.D
+    G = -d22 @ (spdiaginv(d12) @ (Tw @ (P - Pw))) - d22 @ (spdiaginv(d12) @ (Tw @ numerical.D)) * fluid.rhow /144.0 + (fluid.rhoo[0,0]/144.0 * To) @ numerical.D
 
     return Tw, To, T, d11, d12, d21, d22, D, G, Pc, Pw;

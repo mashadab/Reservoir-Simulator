@@ -14,8 +14,6 @@ def rel_perm(petro,Sw):
     
     S =(Sw - petro.Swr)/(1.0 - petro.Sor - petro.Swr) #Normalized saturation
     
-    #if(S<0): S = 0
-    
     krw = (petro.krw0 * S**petro.nw)                    #Corey-Brooks model
     kro = (petro.kro0 *(1.0-S)**petro.no)               #Corey-Brooks model
 
