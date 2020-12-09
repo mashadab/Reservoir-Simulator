@@ -46,7 +46,7 @@ class well:
 def inputfile(fluid,reservoir,petro,numerical,BC,IC,well):
     # Numerical simulation parameters
     numerical.dt     = 0.01 #time step (days)
-    numerical.tfinal = 1000 #final time [days]
+    numerical.tfinal = 1000  #final time [days]
     numerical.PV_final = 1  #final pore volume
     numerical.Nx     = 3    #number of grid blocks in x-direction
     numerical.Ny     = 3    #number of grid blocks in y-direction 
