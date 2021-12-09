@@ -37,7 +37,7 @@ The codes requires the following packages to function:
 
 
 ### Quick Usage
-After cloning the repository and installing the required libraries, run the python files corresponding to the figure numbers as given in the paper. Codes can be run either directly or on an IDE such as Anaconda Spyder. 
+After cloning the repository and installing the required libraries, run the python files given in the separate folders. Codes can be run either directly or on an IDE such as Anaconda Spyder. 
 
 
 ## Acknowledgement
