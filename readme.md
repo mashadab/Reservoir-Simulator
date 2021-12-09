@@ -16,7 +16,7 @@ Shadab, M.A., 2020. Two-dimensional reservoir simulator, The University of Texas
 ## Getting Started
 
 <p align="center">
-<img src="./Cover_photos/Cover0.jpeg" height="370">
+<img src="./Cover_photos/Cover0.jpg" height="370">
 </p>
 Figure : The enclosed Pressure and Saturation contour plots correspond to the simulation of the Nechelik reservoir (80 X 75 cells) with 6 wells (2 horizontal, 4 vertical) for 1000 days with a time step of 0.1 days. After 500 days, water is being injected into two wells on the bottom left for secondary recovery.
 
