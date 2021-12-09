@@ -11,15 +11,12 @@ The University of Texas at Austin
 This repository has 1D/2D single-/two-phase reservoir simulator that considers constant bottom hole pressure and constant rate vertical and horizontal wells, gravity, and heterogeneity. The Python code is validated with a commercial simulator, Computed Modeling Group Ltd. (https://www.cmgl.ca/).
 
 ## Citation
-Shadab, M.A., 2020. Two-dimensional reservoir simulator, the University of Texas at Austin.
+Shadab, M.A., 2020. Two-dimensional reservoir simulator, The University of Texas at Austin.
 
 ## Getting Started
 
 <p align="center">
 <img src="./Cover_photos/Cover0.jpeg" height="370">
-  <img src="./Cover_photos/Cover500.jpeg" height="370">
-  <img src="./Cover_photos/Cover750.jpeg" height="370">
-  <img src="./Cover_photos/Cover1000.jpeg" height="370">
 </p>
 Figure : The enclosed Pressure and Saturation contour plots correspond to the simulation of the Nechelik reservoir (80 X 75 cells) with 6 wells (2 horizontal, 4 vertical) for 1000 days with a time step of 0.1 days. After 500 days, water is being injected into two wells on the bottom left for secondary recovery.
 
