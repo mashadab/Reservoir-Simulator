@@ -11,7 +11,7 @@ The University of Texas at Austin
 This repository has 1D/2D single-/two-phase reservoir simulator that considers constant bottom hole pressure and constant rate vertical and horizontal wells, gravity, and heterogeneity. The Python code is validated with a commercial simulator, Computed Modeling Group Ltd. (https://www.cmgl.ca/).
 
 ## Citation
-Shadab, M.A., 2020. Two-dimensional reservoir simulator, The University of Texas at Austin.
+Shadab, M.A., 2022. Two-dimensional reservoir simulator, Zenodo DOI: 10.5281/zenodo.6581752.
 
 ## Second Project: Simulation of Nechelik reservoir
 
